@@ -174,7 +174,7 @@ function tieneEmail(usuario) {
   // Devuelve "true" si el usuario tiene un valor definido para la propiedad "email"
   // De lo contratio, devuelve "false"
   // Tu código:
-  return usuario.email !== undefined;
+  return user.email != null;
 }
 
 function tienePropiedad(objeto, propiedad) {
@@ -372,7 +372,17 @@ function agruparPorCampoReduce(listaObjetos, nombreCampo) {
 function agruparPorCampoObjectGroupBy(listaObjetos, nombreCampo) {
   // Usá Object.groupBy (requiere Node 22+ según este repo). Función clasificadora: (item) => item[nombreCampo]
   // Tu código:
-  return Object.groupBy(listaObjetos, (item) => item[nombreCampo]);
+  return listaObjetos.reduce((acc, item) => {
+    const clave = item[nombreCampo];
+
+    if (!acc[clave]) {
+      acc[clave] = [];
+    }
+
+    acc[clave].push(item);
+
+    return acc;
+  }, {});
 }
 
 function encadenarOperacionesSinAnidar(valorInicial, funcionesTransform) {
